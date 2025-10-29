@@ -30,6 +30,7 @@ from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__),'.env'))
 #MQTT_SERVER = os.getenv("MQTT_SERVER", "sora2.uclab.jp")
 MQTT_SERVER = os.getenv("MQTT_SERVER", "sora3.uclab.jp")
+print(MQTT_SERVER)
 MQTT_CTRL_TOPIC = os.getenv("MQTT_CTRL_TOPIC", "control")
 # ROBOT_UUID = os.getenv("ROBOT_UUID","nova2-real")
 # ROBOT_MODEL = os.getenv("ROBOT_MODEL","nova2-real")
@@ -395,8 +396,8 @@ class ProcessManager:
     def set_area_enabled(self, enable: bool):
         self._send_command_to_control({"command": "set_area_enabled", "params": {"enable": enable}, "wait": True})
 
-    def tidy_pose(self):
-        self._send_command_to_control({"command": "tidy_pose", "wait": True})
+    def default_pose(self):
+        self._send_command_to_control({"command": "default_pose", "wait": True})
 
     def clear_error(self):
         self._send_command_to_control({"command": "clear_error", "wait": True})

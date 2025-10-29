@@ -170,8 +170,8 @@ class MQTTWin:
                       command=self.SetArea, state="disabled")
         self.button["SetAreaEnabled"].grid(row=row,column=0,padx=2,pady=2,sticky="ew", columnspan=2)
 
-        self.button["TidyPose"] = tk.Button(self.root, text="TidyPose", padx=5,
-                      command=self.TidyPose, state="disabled")
+        self.button["TidyPose"] = tk.Button(self.root, text="DefaultPose", padx=5,
+                      command=self.DefaultPose, state="disabled")
         self.button["TidyPose"].grid(row=row,column=2,padx=2,pady=2,sticky="ew", columnspan=2)
 
         self.button["ClearError"] = tk.Button(self.root, text="ClearError", padx=5,
@@ -645,10 +645,10 @@ class MQTTWin:
             return
         self._exclusive_button_action(lambda: self.pm.set_area_enabled(enabled))
 
-    def TidyPose(self):
+    def DefaultPose(self):
         if not self.pm.state_control:
             return
-        self._exclusive_button_action(self.pm.tidy_pose)
+        self._exclusive_button_action(self.pm.default_pose)
 
     def ClearError(self):
         if not self.pm.state_control:

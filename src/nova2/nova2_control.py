@@ -667,6 +667,9 @@ class Nova2_CON:
             self.logger.error("Error moving to tidy pose")
             self.logger.error(f"{self.robot.format_error(e)}")
 
+    def default_pose(self):
+        self.robot.moveJoints(5,-7,-90,3,90,6)
+
     def move_joint(self, joints: List[float]) -> None:
         try:
             self.robot.move_joint_until_completion(joints)
@@ -1040,8 +1043,8 @@ class Nova2_CON:
                     self.disable()
                 elif command["command"] == "set_area_enabled":
                     self.set_area_enabled(**command["params"])
-                elif command["command"] == "tidy_pose":
-                    self.tidy_pose()
+                elif command["command"] == "default_pose":
+                    self.default_pose()
                 elif command["command"] == "release_hand":
                     self.logger.info("Release hand")
                     self.send_release()

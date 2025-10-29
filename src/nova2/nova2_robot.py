@@ -337,6 +337,12 @@ class Nova2Robot:
         str_status = str(status)
         ret = self.client_dash.sendRecvMsg("ToolDOExecute("+str_index+","+str_status+")")
 
+    def moveJoints(self, j1,j2,j3,j4,j5,j6):
+        ret = self.client_move.sendRecvMsg("JointMovJ("+str(j1)+","+str(j2)+","+str(j3)+","+str(j4)+","+str(j5)+","+str(j6)+")")
+        print("move default pose")
+        print(ret)
+
+
     def leave_servo_mode(self):
         self.logger.info("leave_servo_mode")
         pass
