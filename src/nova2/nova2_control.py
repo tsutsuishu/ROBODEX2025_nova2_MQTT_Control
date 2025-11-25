@@ -668,7 +668,7 @@ class Nova2_CON:
             self.logger.error(f"{self.robot.format_error(e)}")
 
     def default_pose(self):
-        self.robot.moveJoints(5,-7,-90,3,90,6)
+        self.robot.moveJoints(90,-7,-90,3,90,6)
 
     def move_joint(self, joints: List[float]) -> None:
         try:
