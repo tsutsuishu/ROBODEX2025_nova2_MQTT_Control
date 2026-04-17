@@ -137,6 +137,14 @@ class Nova2_MON:
                 self.logger.error(e)
                 actual_joint = None
 
+            try:
+                actual_tcp_forces = self.robot.get_current_tcp_force()
+                print(actual_tcp_forces)
+            except Exception as e:
+                self.logger.error("fail to get tcp force")
+                self.logger.error(e)
+                actual_tcp_forces = None
+
             if actual_joint is not None:
                 if MQTT_FORMAT == 'UR-realtime-control-MQTT':        
                     joints = ['j1','j2','j3','j4','j5','j6']
@@ -219,7 +227,6 @@ class Nova2_MON:
             # MQTT手動制御モード時のみ記録する
             # それ以外の時のエラーはstate情報は必要ないと考えたため
             if f is not None and self.pose[15] == 1:
-                forces = None #Nova2は力センサなし
                 width = 0
                 force = 0
                 tool_id = 2
@@ -230,7 +237,7 @@ class Nova2_MON:
                     pose=actual_tcp_pose,
                     width=width,
                     force=force,
-                    forces=forces,
+                    forces=actual_tcp_forces,
                     error=error,
                     enabled=enabled,
                     # TypeError: Object of type float32 is not JSON

@@ -198,6 +198,12 @@ class Nova2Robot:
         cur_jnt = self._raw_feedback[0][23]
         return cur_jnt
     
+    def get_current_tcp_force(self):
+        if self._raw_feedback is None:
+            return None
+        cur_tcp_force = self._raw_feedback[0][26]
+        return cur_tcp_force
+    
     
     def enable_robot(self) -> bool:
         #本来は以下のようにしたい
