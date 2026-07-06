@@ -159,6 +159,19 @@ class Nova2_MON:
                 else:
                     raise ValueError
             
+            # TCP-Force
+            try:
+                actual_tcp_force = self.robot.get_current_torque()
+            except Exception as e:
+                # if type(e) is ORiNException and self.robot.is_error_level_0(e):
+                #     self.logger.warning(f"{self.robot.format_error_wo_desc(e)}")
+                # else:
+                #     self.logger.error(f"{self.robot.format_error_wo_desc(e)}")
+                # self.reconnect_after_timeout(e)
+                self.logger.error("fail to get tcp force")
+                self.logger.error(e)
+                actual_tcp_force = None
+            
             # 型: 整数、単位: ms
             time_ms = int(now * 1000)
             actual_joint_js["time"] = time_ms

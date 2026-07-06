@@ -198,6 +198,30 @@ class Nova2Robot:
         cur_jnt = self._raw_feedback[0][23]
         return cur_jnt
     
+    def is_enabled(self):
+        if self._raw_feedback is None:
+            return None
+        is_enable = self._raw_feedback[0][50]
+        return bool(is_enable)
+    
+    def get_current_torque(self):
+        if self._raw_feedback is None:
+            return None
+        cur_torque = self._raw_feedback[0]['m_actual']
+        return cur_torque.tolist()
+        
+    def get_tcp_force(self):
+        if self._raw_feedback is None:
+            return None
+        tcp_force = self._raw_feedback[0]['TCP_force']
+        print("tcp_force",tcp_force)
+
+        return tcp_force.tolist()
+
+    
+    
+    
+    
     
     def enable_robot(self) -> bool:
         #本来は以下のようにしたい
@@ -246,12 +270,7 @@ class Nova2Robot:
         s = s + "Error trace: " + traceback.format_exc() + "\n"
         return s
     
-    def is_enabled(self):
-        if self._raw_feedback is None:
-            return None
-        is_enable = self._raw_feedback[0][50]
-        return bool(is_enable)
-    
+
     def get_robot_mode(self):
         # dashPortからenableかの判定可能!!
         if hasattr(self, 'client_dash'):
